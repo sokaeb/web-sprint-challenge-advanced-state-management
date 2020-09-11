@@ -8,7 +8,13 @@ import {
 } from '../actions';
 
 export const initialState = {
-    smurfs: [],
+    smurfs: [
+        {
+            name: '',
+            age: 1,
+            height: '',
+        }
+    ],
     loadingSmurfs: false,
     errorMessage: ""
 }
@@ -38,6 +44,18 @@ export default (state = initialState, action) => {
                 ...state,
                 smurfs: action.payload
             }
+            case POST_SMURFS_SUCCESS:
+                return {
+                    ...state,
+                    loadingSmurfs: false,
+                    errorMessage: action.payload.message
+                }
+            case POST_SMURFS_ERROR:
+                return {
+                    ...state,
+                    loadingSmurfs: false,
+                    errorMessage: action.payload.message
+                    }
         default:
             return state;
     };

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { postSmurfs } from '../actions';
 
 const initialFormValues = {
     name: '',
@@ -7,21 +8,16 @@ const initialFormValues = {
 }
 
 export default function SmurfForm() {
-    const [formValues, setFormValues] = useState(initialFormValues)
+    const [newSmurf, setNewSmurf] = useState(initialFormValues)
     
     const onSubmit = evt => {
         evt.preventDefault()
-        const newSmurf = {
-            name: formValues.name,
-            age: formValues.age,
-            height: formValues.height,
-        }
-        // postNewSmurf(newSmurf)
+        postSmurfs(newSmurf)
+        setNewSmurf(initialFormValues)
     }
 
     const onInputChange = evt => {
-        setFormValues(evt.target.value)
-
+        setNewSmurf(evt.target.value)
     }
 
     return(
@@ -30,7 +26,7 @@ export default function SmurfForm() {
             <div className="formInputs">
                 <label>Smurf Name&nbsp;
                     <input
-                        value={formValues.name}
+                        value={newSmurf.name}
                         name='name'
                         type='text'
                         onChange={onInputChange}
@@ -39,7 +35,7 @@ export default function SmurfForm() {
 
                 <label>Smurf Age&nbsp;
                     <input
-                        value={formValues.age}
+                        value={newSmurf.age}
                         name='name'
                         type='text'
                         onChange={onInputChange}
@@ -48,7 +44,7 @@ export default function SmurfForm() {
 
                 <label>Smurf Height&nbsp;
                     <input
-                        value={formValues.height}
+                        value={newSmurf.height}
                         name='name'
                         type='text'
                         onChange={onInputChange}

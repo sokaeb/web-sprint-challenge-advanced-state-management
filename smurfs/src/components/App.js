@@ -23,8 +23,7 @@ function App(props) {
           {errorMessage !== "" ? <div>{errorMessage}</div> : null}
         </div>
         <div className="smurfForm">
-          <SmurfForm
-          />
+          <SmurfForm />
         </div>
       </div>
     );
@@ -32,6 +31,7 @@ function App(props) {
 
 function mapStateToProps(state){
   return {
+    smurfs: state.smurfs,
     loadingSmurfs: state.loadingSmurfs,
     errorMessage: state.errorMessage,
   }
