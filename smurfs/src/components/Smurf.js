@@ -1,13 +1,13 @@
 import React from 'react';
 
 const Smurf = (props) => {
-    const { smurf } = props;
+    const {smurf} = props;
 
     return(
-        <div>
+        <div className="smurfCard">
             <h2>{smurf.name}</h2>
-            <p>{smurf.age}</p>
-            <p>{smurf.height}</p>
+            <p>Age: {smurf.age}</p>
+            <p>Height: {smurf.height}</p>
         </div>
     )
 }
