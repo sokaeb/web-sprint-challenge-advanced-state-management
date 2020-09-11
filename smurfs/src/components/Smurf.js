@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Smurf = (props) => {
-    const {smurf} = props;
+function Smurf(props) {
+    const { smurf } = props;
 
     return(
         <div className="smurfCard">

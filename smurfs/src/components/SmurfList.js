@@ -9,13 +9,13 @@ function SmurfList(props) {
                 return <Smurf key={smurf.id} smurf={smurf} />
             })}
         </div>
-    )
+    );
 }
 
 function mapStateToProps(state){
     return{
-        smurfs: state.smurfs
-    }
+        smurfs: state.smurfs,
+    };
 }
 
 export default connect(mapStateToProps, {})(SmurfList);

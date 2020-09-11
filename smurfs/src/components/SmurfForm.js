@@ -1,5 +1,7 @@
+import axios from 'axios';
 import React, { useState } from 'react';
-import { postSmurfs } from '../actions';
+// import { postSmurfs } from '../actions';
+import { connect } from 'react-redux';
 
 const initialFormValues = {
     name: '',
@@ -7,18 +9,47 @@ const initialFormValues = {
     height: '',
 }
 
-export default function SmurfForm() {
-    const [newSmurf, setNewSmurf] = useState(initialFormValues)
+const SmurfForm = (props) => {
+    const [newSmurf, setNewSmurf] = useState(initialFormValues);
     
+    const newSmurfPost = (smurf) => {
+        axios
+            .post('http://localhost:3333/smurfs', smurf)
+            .then(res => {})
+            .catch(err => {
+                console.log(err)
+            })
+            .finally(() => {
+                setNewSmurf(initialFormValues)
+            });
+    };
+
     const onSubmit = evt => {
-        evt.preventDefault()
-        postSmurfs(newSmurf)
-        setNewSmurf(initialFormValues)
+        const newSmurfy = {
+            name: newSmurf.name.trim(),
+            age: newSmurf.age,
+            height: newSmurf.height.trim(),
+        };
+        newSmurfPost(newSmurfy)
     }
 
+    // const onSubmit = evt => {
+    //     evt.preventDefault()
+    //     postSmurfs(newSmurf)
+    //     setNewSmurf(initialFormValues)
+    // }
+
+    const onInput = (value, data ) => {
+        setNewSmurf({
+            ...newSmurf,
+            [value]: data,
+        });
+    };
+
     const onInputChange = evt => {
-        setNewSmurf(evt.target.value)
-    }
+        const { name, value } = evt.target;
+        onInput(name, value);
+    };
 
     return(
         <form className="formContainer" onSubmit={onSubmit}>
@@ -26,7 +57,7 @@ export default function SmurfForm() {
             <div className="formInputs">
                 <label>Smurf Name&nbsp;
                     <input
-                        value={newSmurf.name}
+                        value={props.smurfs.name}
                         name='name'
                         type='text'
                         onChange={onInputChange}
@@ -35,7 +66,7 @@ export default function SmurfForm() {
 
                 <label>Smurf Age&nbsp;
                     <input
-                        value={newSmurf.age}
+                        value={props.smurfs.age}
                         name='name'
                         type='text'
                         onChange={onInputChange}
@@ -44,7 +75,7 @@ export default function SmurfForm() {
 
                 <label>Smurf Height&nbsp;
                     <input
-                        value={newSmurf.height}
+                        value={props.smurfs.height}
                         name='name'
                         type='text'
                         onChange={onInputChange}
@@ -56,3 +87,11 @@ export default function SmurfForm() {
     )
 }
 
+
+function mapStateToProps(state){
+    return {
+        smurfs: state.smurfs,
+    }
+}
+
+export default connect(mapStateToProps, {})(SmurfForm);
