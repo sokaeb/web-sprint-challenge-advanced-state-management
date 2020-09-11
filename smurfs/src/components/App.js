@@ -5,11 +5,9 @@ import { connect } from 'react-redux';
 import SmurfList from './SmurfList';
 import SmurfForm from './SmurfForm';
 import { fetchSmurfs } from '../actions/index';
-// import {initialSmurfState, reducer} from '../reducers';
 
 const App = (props) => {
   const { fetchSmurfs, loadingSmurfs, errorMessage } = props;
-  // const [state, dispatch] = useReducer(reducer, initialSmurfState)
 
   useEffect(() => {
     fetchSmurfs();
